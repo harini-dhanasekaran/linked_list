@@ -119,13 +119,23 @@ int removeDuplicate(node* head){
     cout<<"empty";
     return 0;
   }
+  set<int> pv;  //previous value
+  pv.insert(p->data);
   while(q!=NULL){
-    set<int> pv;  //previous value
-    pv.insert(p->data);
-    pv.find(q->data);
+    if(pv.find(q->data) != pv.end()){
+      p->next=q->next;
+      delete q;
+      q=p->next;
+    }
+    else{
+      p=p->next;
+      q=q->next;
+      pv.insert(p->data);
+    }
   }
   
 }
+
 int main(){
     node* head = new node;
     createlist(head);
