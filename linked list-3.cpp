@@ -1,16 +1,16 @@
 #include <iostream>
 using namespace std;
+int size;
 class node{
     public:
       int data;
       node* next;
 };
-
+                                                              //linearList
 void linearList(node* p){
-    int size;
     node* last=p;
     cout<<"enter the size of Linearlist";
-    cin>>size;
+    cin>>::size;
     cout<<"enter the data";
     cin>>p->data;
     p->next = NULL;
@@ -30,10 +30,9 @@ void displaylist(node* p){
     }
     cout<<NULL;
 }
-
+                                                      //circularList
 
 void circularList(node* head){
-    int size ;
     cout<<"enter the size of Circularlist";
     cin>>size;
     cout<<"enter the datas";
@@ -53,13 +52,13 @@ void circularList(node* head){
 
 void displayCircularList(node* head){
     node* temp=head;
-    cout<<temp->data<<"->";
-    temp=temp->next;
-    while(temp !=head ){
+    static int flag=0;
+    while(temp !=head || flag==0 ){
+        flag=1;
         cout<<temp->data<<"->";
-        temp=temp->next;
+        temp=temp->next;         //we can use recursive here but head must be accessible both outside and inside 
     }
-    cout<<"0";
+    flag=0;
 }
 
 bool isCircularList(node * head){
@@ -76,13 +75,74 @@ bool isCircularList(node * head){
   return false;
 }
 
+void insertCircular(node* &head){
+    int pos;
+    cout<<"enter the position at which the node to be inserted";
+    cin>>pos;
+    node *temp=new node;
+    cout<<"enter the data of new node";
+    cin>>temp->data;
+    if(pos==0){
+        node* p=head->next;
+        while(p->next !=head){
+            p=p->next;
+        }
+        temp->next =p->next;
+        p->next=temp;
+        head=temp;
+    }
+    else{
+        node* p=head;
+        while(--pos){
+            p=p->next;
+        }
+        temp->next =p->next;
+        p->next=temp;
+    }
+    
+}
+
+void deleteCirularNode(node *head){
+    if(size==1){
+        delete head;
+        cout<<0;
+    }
+    node *p=head,*q=NULL;
+    int pos;
+    cout<<"enter the data that has to be deleted";
+    cin>>pos;
+    while(p->data !=pos){
+        q=p;
+        p=p->next;
+    }
+    q->next =p->next;
+    delete p;
+}
 int main(){
+    int size;
     node* head = new node;
     circularList(head);
     //linearList(head);
     displayCircularList(head);
     //displaylist(head);
     cout<<endl;
-    cout<<isCircularList(head);
+    //cout<<isCircularList(head);
+    //insertCircular(head);
+    deleteCirularNode(head);
+      cout<<endl;
+    displayCircularList(head);
     return 0;
 }
+
+
+                                                       //function
+/*
+linearList            -    to create a linearList
+displaylist           -    to display linearList
+circularList          -    to create a circularList
+displayCircularList   -    to display circularList
+isCircularList        -    to check if a given linked list is linear or circular
+insertCircular        -    to insert in a circular linked list
+deleteCirularNode     -    to delete a node in circularList
+
+*/
