@@ -118,6 +118,14 @@ void deleteCirularNode(node *head){
     q->next =p->next;
     delete p;
 }
+void reverseCircularList(node* &head){
+    node* p=head;
+        while(p->next!= head){
+            p=p->next;
+        }
+        head=p;
+}
+
 int main(){
     int size;
     node* head = new node;
@@ -128,7 +136,8 @@ int main(){
     cout<<endl;
     //cout<<isCircularList(head);
     //insertCircular(head);
-    deleteCirularNode(head);
+    //deleteCirularNode(head);
+    reverseCircularList(head);
       cout<<endl;
     displayCircularList(head);
     return 0;
@@ -144,5 +153,6 @@ displayCircularList   -    to display circularList
 isCircularList        -    to check if a given linked list is linear or circular
 insertCircular        -    to insert in a circular linked list
 deleteCirularNode     -    to delete a node in circularList
+reverseCircularList   -    to reverse a circular linked list
 
 */
